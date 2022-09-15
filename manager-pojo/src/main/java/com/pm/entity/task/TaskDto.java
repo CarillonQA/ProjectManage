@@ -2,11 +2,13 @@ package com.pm.entity.task;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@Builder
 @ApiModel(value = "TaskDto", description = "任务信息类，存放前端传来的数据")
 public class TaskDto {
 

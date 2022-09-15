@@ -38,6 +38,13 @@
         FROM pm_task
     </select>
 
+    <select id="queryTaskById" resultType="com.pm.entity.task.CoreTask">
+        SELECT
+        <include refid="task" />
+        FROM pm_task
+        WHERE task_id = #{taskId}
+    </select>
+
     <select id="querySonTaskByParentId" resultType="com.pm.entity.task.CoreTask">
         SELECT
         <include refid="task" />

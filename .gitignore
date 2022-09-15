@@ -7,5 +7,5 @@
 *.iml
 out
 gen
-!/lib/
 */target
+/lib/

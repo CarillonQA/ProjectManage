@@ -10,6 +10,8 @@ public interface TaskDao {
 
     List<CoreTask> getAllTask();
 
+    CoreTask queryTaskById(@Param("taskId") Integer taskId);
+
     List<CoreTask> querySonTaskByParentId(@Param("parentId") Integer parentId);
 
     Integer createTask(@Param("taskDto") TaskDto taskDto);
