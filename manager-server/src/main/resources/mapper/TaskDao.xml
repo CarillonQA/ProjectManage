@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pm.dao.TaskDao">
+
+    <resultMap id="task" type="com.pm.entity.task.CoreTask">
+        <id property="taskId" column="pm_task_id" />
+        <result property="parentId" column="pm_parent_id" />
+        <result property="taskName" column="pm_task_name" />
+        <result property="startDate" column="pm_start_date" />
+        <result property="endDate" column="pm_end_date" />
+        <result property="taskPriority" column="pm_task_priority" />
+        <result property="taskState" column="pm_task_state" />
+        <result property="realStartDate" column="pm_real_start_date" />
+        <result property="realEndDate" column="pm_real_end_date" />
+        <result property="taskExecutorId" column="pm_task_executor_id" />
+        <result property="remarks" column="pm_remarks" />
+        <result property="projectId" column="pm_project_id" />
+    </resultMap>
+
+    <sql id="task">
+        pm_task.task_id,
+        pm_task.parent_id,
+        pm_task.task_name,
+        pm_task.start_date,
+        pm_task.end_date,
+        pm_task.task_priority,
+        pm_task.task_state,
+        pm_task.real_start_date,
+        pm_task.real_end_date,
+        pm_task.task_executor_id,
+        pm_task.remarks,
+        pm_task.project_id
+    </sql>
+
+    <select id="getAllTask" resultType="com.pm.entity.task.CoreTask">
+        SELECT
+        <include refid="task" />
+        FROM pm_task
+    </select>
+
+    <select id="querySonTaskByParentId" resultType="com.pm.entity.task.CoreTask">
+        SELECT
+        <include refid="task" />
+        FROM pm_task
+        WHERE parent_id = #{parentId}
+    </select>
+
+    <insert id="createTask" useGeneratedKeys="true" keyProperty="taskId">
+        INSERT INTO pm_task (PARENT_ID, TASK_NAME, START_DATE, END_DATE, TASK_PRIORITY, TASK_STATE,
+                     REAL_START_DATE, REAL_END_DATE, TASK_EXECUTOR_ID, REMARKS, PROJECT_ID)
+        VALUES (#{taskDto.parentId}, #{taskDto.taskName}, #{taskDto.startDate}, #{taskDto.endDate}, #{taskDto.taskPriority}, #{taskDto.taskState},
+                #{taskDto.realStartDate}, #{taskDto.realEndDate}, #{taskDto.taskExecutorId}, #{taskDto.remarks}, #{taskDto.projectId})
+    </insert>
+
+</mapper>

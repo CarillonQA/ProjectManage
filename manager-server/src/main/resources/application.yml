@@ -1,0 +1,18 @@
+server:
+  tomcat:
+    max-threads: 1600 # Tomcat可创建的最大的线程数，每一个线程处理一个请求，超过这个请求数后，客户端请求只能排队，等有线程释放才能处理 建议这个配置数可以在服务器CUP核心数的200~250倍之间
+    accept-count: 1000
+    max-connections: 3000 # 这个参数是指在同一时间，tomcat能够接受的最大连接数。一般这个值要大于(max-threads)+(accept-count)。
+  error:
+    include-stacktrace: always
+
+spring:
+  profiles:
+    active: dev
+
+mybatis:
+  #  type-aliases-package: com.lz.entity
+  mapperLocations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  check-config-location: true

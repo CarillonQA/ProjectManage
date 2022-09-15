@@ -1,0 +1,22 @@
+# 开发环境
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/xmgl?useUnicode=true&characterEncoding=utf8&serverTimezone = GMT
+    username: root
+    password: 123456
+
+server:
+  port: 8686
+
+pm:
+  #  jwt需要的参数配置
+  jwt:
+    publicKeyPath: D:/slw/jwt/pm.pub
+    privateKeyPath: D:/slw/jwt/pm.pri
+    secret: ${random.uuid}
+    tokenName: PM-TOKEN
+    expire: 86400
+    cookieMaxAge: 86400
+    domain: "pm.com"

@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "pm.jwt.publicKeyPath",
+      "type": "java.lang.String",
+      "description": "Description for pm.jwt.publicKeyPath."
+  }
+] }

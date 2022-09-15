@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pm.dao.RelationDao">
+
+    <insert id="insertProjectUser">
+        INSERT INTO pm_project_user(project_id, user_id) VALUES (#{projectId}, #{userId})
+    </insert>
+
+</mapper>
