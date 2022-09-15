@@ -17,7 +17,7 @@ public class TaskServiceImpl implements TaskService {
     TaskDao taskDao;
 
     /**
-     * @Description:
+     * @Description: 根据任务ID查询该任务及下级子任务
      * @Author: CarillonQA
      * @param: taskId
      * @return: List<TaskDto>
@@ -26,6 +26,23 @@ public class TaskServiceImpl implements TaskService {
     public TaskDto queryTaskListById(Integer taskId) {
         CoreTask coreTask = taskDao.queryTaskById(taskId);
         return queryTaskRecursion(coreTask);
+    }
+
+    /**
+     * @Description: 根据项目ID查询该项目下的任务及下级子任务
+     * @Author: CarillonQA
+     * @param: projectId
+     * @return: List<TaskDto>
+     */
+    @Override
+    public List<TaskDto> queryTaskByProjectId(Integer projectId) {
+        List<CoreTask> coreTaskList = taskDao.queryFatherTaskByProjectId(projectId);
+        List<TaskDto> taskDtoList = new ArrayList<>();
+        for (CoreTask fatherTask : coreTaskList) {
+            TaskDto taskDto = queryTaskRecursion(fatherTask);
+            taskDtoList.add(taskDto);
+        }
+        return taskDtoList;
     }
 
     /**
