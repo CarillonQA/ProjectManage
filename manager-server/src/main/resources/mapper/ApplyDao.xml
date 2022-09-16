@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pm.dao.ApplyDao">
+
+    <resultMap id="apply" type="com.pm.entity.apply.CoreApply">
+        <id property="applyId" column="apply_id" />
+        <result property="projectId" column="project_id" />
+        <result property="taskId" column="task_id" />
+        <result property="applicant" column="applicant" />
+        <result property="applyDate" column="apply_date" />
+        <result property="applyReason" column="apply_reason" />
+        <result property="taskExpectedEndDate" column="task_expected_end_date" />
+        <result property="applyManager" column="apply_manager" />
+        <result property="applyLeader" column="apply_leader" />
+        <result property="managerApplyResult" column="manager_apply_result" />
+        <result property="managerApplyContent" column="manager_apply_content" />
+        <result property="managerApplyDate" column="manager_apply_date" />
+        <result property="leaderApplyResult" column="leader_apply_result" />
+        <result property="leaderApplyContent" column="leader_apply_content" />
+        <result property="leaderApplyDate" column="leader_apply_date" />
+        <result property="remarks" column="remarks" />
+    </resultMap>
+
+</mapper>

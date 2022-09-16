@@ -3,8 +3,8 @@
 <mapper namespace="com.pm.dao.AreaDao">
 
     <resultMap id="area" type="com.pm.entity.area.Area">
-        <id property="areaId" column="pm_area_id" />
-        <result property="areaName" column="pm_area_name" />
+        <id property="areaId" column="area_id" />
+        <result property="areaName" column="area_name" />
     </resultMap>
 
     <!--  获取地区列表  -->

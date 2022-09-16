@@ -3,98 +3,98 @@
 <mapper namespace="com.pm.dao.ProjectDao">
 
     <resultMap id="project" type="com.pm.entity.project.CoreProject">
-        <id property="projectId" column="pm_project_id" />
-        <result property="projectName" column="pm_project_name" />
-        <result property="projectIcon" column="pm_project_icon" />
-        <result property="projectArea" column="pm_project_area" />
-        <result property="projectCustomer" column="pm_project_customer" />
-        <result property="startDate" column="pm_project_start_date" />
-        <result property="endDate" column="pm_project_end_date" />
-        <result property="createdById" column="pm_created_by_id" />
-        <result property="createdDate" column="pm_created_date" />
-        <result property="describe" column="pm_describe" />
-        <result property="delFlag" column="pm_del_flag" />
+        <id property="projectId" column="project_id" />
+        <result property="projectName" column="project_name" />
+        <result property="projectIcon" column="project_icon" />
+        <result property="projectArea" column="project_area" />
+        <result property="projectCustomer" column="project_customer" />
+        <result property="startDate" column="project_start_date" />
+        <result property="endDate" column="project_end_date" />
+        <result property="createdById" column="created_by_id" />
+        <result property="createdDate" column="created_date" />
+        <result property="describe" column="describe" />
+        <result property="delFlag" column="del_flag" />
         <association property="createdBy" javaType="com.pm.entity.user.CoreUser">
-            <id property="id" column="pm_userId"/>
-            <result column="pm_userUsername" property="username"/>
-            <result column="pm_userRealName" property="realName"/>
-            <result column="pm_userHeadPortrait" property="headPortrait"/>
-            <result column="pm_userNickname" property="nickname"/>
-            <result column="pm_userAuthority" property="authority"/>
-            <result column="pm_is_manager" property="isManager"/>
-            <result column="pm_is_leader" property="isLeader"/>
+            <id property="id" column="id"/>
+            <result column="username" property="username"/>
+            <result column="real_name" property="realName"/>
+            <result column="head_portrait" property="headPortrait"/>
+            <result column="nickname" property="nickname"/>
+            <result column="authority" property="authority"/>
+            <result column="is_manager" property="isManager"/>
+            <result column="is_leader" property="isLeader"/>
         </association>
         <collection property="projectManager" ofType="com.pm.entity.user.CoreUser">
-            <id property="id" column="pm_userId"/>
-            <result column="pm_userUsername" property="username"/>
-            <result column="pm_userRealName" property="realName"/>
-            <result column="pm_userHeadPortrait" property="headPortrait"/>
-            <result column="pm_userNickname" property="nickname"/>
-            <result column="pm_userAuthority" property="authority"/>
-            <result column="pm_is_manager" property="isManager"/>
-            <result column="pm_is_leader" property="isLeader"/>
+            <id property="id" column="id"/>
+            <result column="username" property="username"/>
+            <result column="real_name" property="realName"/>
+            <result column="head_portrait" property="headPortrait"/>
+            <result column="nickname" property="nickname"/>
+            <result column="authority" property="authority"/>
+            <result column="is_manager" property="isManager"/>
+            <result column="is_leader" property="isLeader"/>
         </collection>
         <collection property="projectMember" ofType="com.pm.entity.user.CoreUser">
-            <id property="id" column="pm_userId"/>
-            <result column="pm_userUsername" property="username"/>
-            <result column="pm_userRealName" property="realName"/>
-            <result column="pm_userHeadPortrait" property="headPortrait"/>
-            <result column="pm_userNickname" property="nickname"/>
-            <result column="pm_userAuthority" property="authority"/>
-            <result column="pm_is_manager" property="isManager"/>
-            <result column="pm_is_leader" property="isLeader"/>
+            <id property="id" column="id"/>
+            <result column="username" property="username"/>
+            <result column="real_name" property="realName"/>
+            <result column="head_portrait" property="headPortrait"/>
+            <result column="nickname" property="nickname"/>
+            <result column="authority" property="authority"/>
+            <result column="is_manager" property="isManager"/>
+            <result column="is_leader" property="isLeader"/>
         </collection>
     </resultMap>
 
     <!--  项目查询字段  -->
     <sql id="project">
-        pm_project.project_id as pm_project_id,
-        pm_project.project_name as pm_project_name,
-        pm_project.project_icon as pm_project_icon,
-        pm_project.project_area as pm_project_area,
-        pm_project.project_customer as pm_project_customer,
-        pm_project.start_date as pm_project_start_date,
-        pm_project.end_date as pm_project_end_date,
-        pm_project.created_by_id as pm_created_by_id,
-        pm_project.created_date as pm_created_date,
-        pm_project.describe as pm_describe,
-        pm_project.del_flag as pm_del_flag
+        pm_project.project_id as project_id,
+        pm_project.project_name as project_name,
+        pm_project.project_icon as project_icon,
+        pm_project.project_area as project_area,
+        pm_project.project_customer as project_customer,
+        pm_project.start_date as project_start_date,
+        pm_project.end_date as project_end_date,
+        pm_project.created_by_id as created_by_id,
+        pm_project.created_date as created_date,
+        pm_project.describe as describe,
+        pm_project.del_flag as del_flag
     </sql>
 
     <!-- 用户查询字段 -->
     <sql id="user">
-        pm_user.id as pm_userId,
-        pm_user.username as pm_userUsername,
-        pm_user.real_name as pm_userRealName,
-        pm_user.head_portrait as pm_userHeadPortrait,
-        pm_user.nickname as pm_userNickname,
-        pm_user.authority as pm_userAuthority
+        pm_user.id as user_id,
+        pm_user.username as username,
+        pm_user.real_name as real_name,
+        pm_user.head_portrait as head_portrait,
+        pm_user.nickname as nickname,
+        pm_user.authority as authority
     </sql>
 
     <!--  根据项目名查询项目的详细信息  -->
     <select id="queryProjectByProjectName" resultMap="project">
         SELECT
         <include refid="project" />,
-        r.pm_userId,
-        r.pm_userUsername,
-        r.pm_userRealName,
-        r.pm_userHeadPortrait,
-        r.pm_userNickname,
-        r.pm_userAuthority,
-        r.pm_is_manager,
-        r.pm_is_leader
+        r.user_id,
+        r.username,
+        r.real_name,
+        r.head_portrait,
+        r.nickname,
+        r.authority,
+        r.is_manager,
+        r.is_leader
         FROM
         (
             SELECT
             pu.project_id,
-            u.id as pm_userId,
-            u.username as pm_userUsername,
-            u.real_name as pm_userRealName,
-            u.head_portrait as pm_userHeadPortrait,
-            u.nickname as pm_userNickname,
-            u.authority as pm_userAuthority,
-            u.is_manager as pm_is_manager,
-            u.is_leader as pm_is_leader
+            u.id as user_id,
+            u.username as username,
+            u.real_name as real_name,
+            u.head_portrait as head_portrait,
+            u.nickname as nickname,
+            u.authority as authority,
+            u.is_manager as is_manager,
+            u.is_leader as is_leader
             FROM pm_project_user pu RIGHT JOIN pm_user u ON pu.user_id = u.id
         ) r
         LEFT JOIN pm_project ON pm_project.project_id = r.project_id

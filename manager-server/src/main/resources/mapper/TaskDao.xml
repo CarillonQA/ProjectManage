@@ -3,19 +3,19 @@
 <mapper namespace="com.pm.dao.TaskDao">
 
     <resultMap id="task" type="com.pm.entity.task.CoreTask">
-        <id property="taskId" column="pm_task_id" />
-        <result property="parentId" column="pm_parent_id" />
-        <result property="taskName" column="pm_task_name" />
-        <result property="startDate" column="pm_start_date" />
-        <result property="endDate" column="pm_end_date" />
-        <result property="taskPriority" column="pm_task_priority" />
-        <result property="taskState" column="pm_task_state" />
-        <result property="realStartDate" column="pm_real_start_date" />
-        <result property="realEndDate" column="pm_real_end_date" />
-        <result property="taskExecutorId" column="pm_task_executor_id" />
-        <result property="remarks" column="pm_remarks" />
-        <result property="projectId" column="pm_project_id" />
-        <result property="delFlag" column="pm_del_flag" />
+        <id property="taskId" column="task_id" />
+        <result property="parentId" column="parent_id" />
+        <result property="taskName" column="task_name" />
+        <result property="startDate" column="start_date" />
+        <result property="endDate" column="end_date" />
+        <result property="taskPriority" column="task_priority" />
+        <result property="taskState" column="task_state" />
+        <result property="realStartDate" column="real_start_date" />
+        <result property="realEndDate" column="real_end_date" />
+        <result property="taskExecutorId" column="task_executor_id" />
+        <result property="remarks" column="remarks" />
+        <result property="projectId" column="project_id" />
+        <result property="delFlag" column="del_flag" />
     </resultMap>
 
     <sql id="task">
