@@ -46,6 +46,17 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
+     * @Description: 根据任务ID逻辑删除任务
+     * @Author: CarillonQA
+     * @param: taskId
+     * @return: void
+     */
+    @Override
+    public void deleteTaskById(Integer taskId) {
+        deleteTaskRecursion(taskId);
+    }
+
+    /**
      * @Description: 递归查询任务列表
      * @Author: CarillonQA
      * @param: coreTask
@@ -67,6 +78,22 @@ public class TaskServiceImpl implements TaskService {
             taskDtoBuilder.setSonTaskList(taskDtoList);
         }
         return taskDtoBuilder;
+    }
+
+    /**
+     * @Description: 递归删除任务(逻辑删除)
+     * @Author: CarillonQA
+     * @param: taskId
+     * @return: void
+     */
+    public void deleteTaskRecursion(Integer taskId) {
+        List<CoreTask> taskList = taskDao.querySonTaskByParentId(taskId);
+        if (taskList != null && taskList.size() != 0) {
+            for (CoreTask task : taskList) {
+                deleteTaskRecursion(task.getTaskId());
+            }
+        }
+        taskDao.updateTaskFlagByTaskId(taskId, 0);
     }
 
 }

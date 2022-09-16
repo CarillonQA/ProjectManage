@@ -15,6 +15,7 @@
         <result property="taskExecutorId" column="pm_task_executor_id" />
         <result property="remarks" column="pm_remarks" />
         <result property="projectId" column="pm_project_id" />
+        <result property="delFlag" column="pm_del_flag" />
     </resultMap>
 
     <sql id="task">
@@ -29,13 +30,15 @@
         pm_task.real_end_date,
         pm_task.task_executor_id,
         pm_task.remarks,
-        pm_task.project_id
+        pm_task.project_id,
+        pm_task.del_flag
     </sql>
 
     <select id="getAllTask" resultType="com.pm.entity.task.CoreTask">
         SELECT
         <include refid="task" />
         FROM pm_task
+        WHERE del_flag = 1
     </select>
 
     <select id="queryTaskById" resultType="com.pm.entity.task.CoreTask">
@@ -43,6 +46,7 @@
         <include refid="task" />
         FROM pm_task
         WHERE task_id = #{taskId}
+        AND del_flag = 1
     </select>
 
     <!--  根据项目ID查询该项目下的一级任务  -->
@@ -50,7 +54,9 @@
         SELECT
         <include refid="task" />
         FROM pm_task
-        WHERE parent_id = 0 AND project_id = #{projectId}
+        WHERE parent_id = 0
+        AND project_id = #{projectId}
+        AND del_flag = 1
     </select>
 
     <select id="querySonTaskByParentId" resultType="com.pm.entity.task.CoreTask">
@@ -58,6 +64,7 @@
         <include refid="task" />
         FROM pm_task
         WHERE parent_id = #{parentId}
+        AND del_flag = 1
     </select>
 
     <insert id="createTask" useGeneratedKeys="true" keyProperty="taskId">
@@ -66,5 +73,17 @@
         VALUES (#{taskDto.parentId}, #{taskDto.taskName}, #{taskDto.startDate}, #{taskDto.endDate}, #{taskDto.taskPriority}, #{taskDto.taskState},
                 #{taskDto.realStartDate}, #{taskDto.realEndDate}, #{taskDto.taskExecutorId}, #{taskDto.remarks}, #{taskDto.projectId})
     </insert>
+
+    <!--  根据项目ID修改任务标识(0:删除,1:正常)  -->
+    <update id="updateTaskFlagByProjectId">
+        UPDATE pm_task SET pm_task.del_flag = #{delFlag}
+        WHERE pm_task.project_id = #{projectId}
+    </update>
+
+    <!--  根据任务ID修改任务标识(0:删除,1:正常)  -->
+    <update id="updateTaskFlagByTaskId">
+        UPDATE pm_task SET pm_task.del_flag = #{delFlag}
+        WHERE pm_task.task_id = #{taskId}
+    </update>
 
 </mapper>

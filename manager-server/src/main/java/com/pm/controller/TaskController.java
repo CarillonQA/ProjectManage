@@ -40,4 +40,15 @@ public class TaskController {
         return ResponseEntity.ok(taskDtoList);
     }
 
+    /**
+     * @Description:
+     * @Author: CarillonQA
+     * @param: taskId
+     * @return: void
+     */
+    @PostMapping("/task/delete/{taskId}")
+    public void deleteTaskByTaskId(@PathVariable Integer taskId) {
+        taskService.deleteTaskById(taskId);
+    }
+
 }

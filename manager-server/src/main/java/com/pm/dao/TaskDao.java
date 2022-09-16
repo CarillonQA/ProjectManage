@@ -26,4 +26,16 @@ public interface TaskDao {
 
     Integer createTask(@Param("taskDto") TaskDto taskDto);
 
+    /**
+     * @Description: 根据项目ID修改任务标识(0:删除,1:正常)
+     * @Author: CarillonQA
+     */
+    Integer updateTaskFlagByProjectId(@Param("projectId") Integer projectId, @Param("delFlag") Integer delFlag);
+
+    /**
+     * @Description: 根据任务ID修改任务标识(0:删除,1:正常)
+     * @Author: CarillonQA
+     */
+    Integer updateTaskFlagByTaskId(@Param("taskId") Integer taskId, @Param("delFlag") Integer delFlag);
+
 }

@@ -10,4 +10,10 @@ public interface ProjectDao {
 
     Integer createProject(@Param("projectDto") ProjectDto projectDto);
 
+    /**
+     * @Description: 修改项目标识(0:删除,1:正常)
+     * @Author: CarillonQA
+     */
+    Integer updateProjectFlag(@Param("projectId") Integer projectId, @Param("delFlag") Integer delFlag);
+
 }

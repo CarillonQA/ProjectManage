@@ -1,9 +1,8 @@
 package com.pm.service.impl;
 
-import com.pm.common.entity.UserInfo;
-import com.pm.common.threadlocals.UserHolder;
 import com.pm.dao.ProjectDao;
 import com.pm.dao.RelationDao;
+import com.pm.dao.TaskDao;
 import com.pm.entity.project.CoreProject;
 import com.pm.entity.project.ProjectDto;
 import com.pm.entity.user.CoreUser;
@@ -19,6 +18,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     ProjectDao projectDao;
+
+    @Autowired
+    TaskDao taskDao;
 
     @Autowired
     RelationDao relationDao;
@@ -63,5 +65,18 @@ public class ProjectServiceImpl implements ProjectService {
             }
         }
         return true;
+    }
+
+    /**
+     * @Description: 根据项目ID逻辑删除该项目
+     * @Author: CarillonQA
+     * @param: projectId
+     */
+    @Override
+    public void deleteProjectById(Integer projectId) {
+        Integer integer = projectDao.updateProjectFlag(projectId, 0);
+        if (integer != 0) {
+            taskDao.updateTaskFlagByProjectId(projectId, 0);
+        }
     }
 }

@@ -13,6 +13,7 @@
         <result property="createdById" column="pm_created_by_id" />
         <result property="createdDate" column="pm_created_date" />
         <result property="describe" column="pm_describe" />
+        <result property="delFlag" column="pm_del_flag" />
         <association property="createdBy" javaType="com.pm.entity.user.CoreUser">
             <id property="id" column="pm_userId"/>
             <result column="pm_userUsername" property="username"/>
@@ -56,7 +57,8 @@
         pm_project.end_date as pm_project_end_date,
         pm_project.created_by_id as pm_created_by_id,
         pm_project.created_date as pm_created_date,
-        pm_project.describe as pm_describe
+        pm_project.describe as pm_describe,
+        pm_project.del_flag as pm_del_flag
     </sql>
 
     <!-- 用户查询字段 -->
@@ -96,8 +98,8 @@
             FROM pm_project_user pu RIGHT JOIN pm_user u ON pu.user_id = u.id
         ) r
         LEFT JOIN pm_project ON pm_project.project_id = r.project_id
-        WHERE
-        pm_project.project_name = #{projectName}
+        WHERE pm_project.project_name = #{projectName}
+        AND pm_project.del_flag = 1
     </select>
 
     <insert id="createProject" useGeneratedKeys="true" keyProperty="projectId">
@@ -105,5 +107,11 @@
         VALUES(#{projectDto.projectName}, #{projectDto.projectIcon}, #{projectDto.projectArea}, #{projectDto.projectCustomer},
                #{projectDto.startDate}, #{projectDto.endDate}, #{projectDto.createdById}, #{projectDto.createdDate}, #{projectDto.describe})
     </insert>
+
+    <!--  修改项目标识(0:删除,1:正常)  -->
+    <update id="updateProjectFlag">
+        UPDATE pm_project SET pm_project.del_flag = #{delFlag}
+        WHERE pm_project.project_id = #{projectId}
+    </update>
 
 </mapper>

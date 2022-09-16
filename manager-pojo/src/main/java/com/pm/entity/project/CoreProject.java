@@ -41,6 +41,9 @@ public class CoreProject {
     @ApiModelProperty(value = "项目描述")
     private String describe;
 
+    @ApiModelProperty(value = "逻辑删除标记字段(0:删除, 1:正常)")
+    private Integer delFlag;
+
     // 以下为数据库不存在的字段
     @ApiModelProperty(value = "项目创建人")
     private CoreUser createdBy;

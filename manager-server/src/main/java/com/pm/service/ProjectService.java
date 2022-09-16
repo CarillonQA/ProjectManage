@@ -9,4 +9,6 @@ public interface ProjectService {
 
     Boolean createProject(ProjectDto projectDto);
 
+    void deleteProjectById(Integer projectId);
+
 }

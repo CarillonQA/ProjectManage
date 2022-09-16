@@ -10,4 +10,6 @@ public interface TaskService {
 
     List<TaskDto> queryTaskByProjectId(Integer projectId);
 
+    void deleteTaskById(Integer taskId);
+
 }
