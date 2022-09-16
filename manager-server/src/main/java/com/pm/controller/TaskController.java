@@ -51,4 +51,15 @@ public class TaskController {
         taskService.deleteTaskById(taskId);
     }
 
+    /**
+     * @Description:
+     * @Author: CarillonQA
+     * @param: taskId
+     * @return: void
+     */
+    @PostMapping("/task/recover/{taskId}")
+    public void recoverTaskById(@PathVariable Integer taskId) {
+        taskService.recoverTaskById(taskId);
+    }
+
 }

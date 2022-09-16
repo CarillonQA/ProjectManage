@@ -38,7 +38,7 @@
         SELECT
         <include refid="task" />
         FROM pm_task
-        WHERE del_flag = 1
+        WHERE del_flag = 0
     </select>
 
     <select id="queryTaskById" resultType="com.pm.entity.task.CoreTask">
@@ -46,7 +46,7 @@
         <include refid="task" />
         FROM pm_task
         WHERE task_id = #{taskId}
-        AND del_flag = 1
+        AND del_flag = 0
     </select>
 
     <!--  根据项目ID查询该项目下的一级任务  -->
@@ -56,10 +56,19 @@
         FROM pm_task
         WHERE parent_id = 0
         AND project_id = #{projectId}
-        AND del_flag = 1
+        AND del_flag = 0
     </select>
 
     <select id="querySonTaskByParentId" resultType="com.pm.entity.task.CoreTask">
+        SELECT
+        <include refid="task" />
+        FROM pm_task
+        WHERE parent_id = #{parentId}
+        AND del_flag = 0
+    </select>
+
+    <!--  根据上级任务ID查询已被删除的子任务列表  -->
+    <select id="queryDeletedTaskByParentId" resultType="com.pm.entity.task.CoreTask">
         SELECT
         <include refid="task" />
         FROM pm_task
@@ -74,13 +83,13 @@
                 #{taskDto.realStartDate}, #{taskDto.realEndDate}, #{taskDto.taskExecutorId}, #{taskDto.remarks}, #{taskDto.projectId})
     </insert>
 
-    <!--  根据项目ID修改任务标识(0:删除,1:正常)  -->
+    <!--  根据项目ID修改任务标识(0:未删除, 1:已删除)  -->
     <update id="updateTaskFlagByProjectId">
         UPDATE pm_task SET pm_task.del_flag = #{delFlag}
         WHERE pm_task.project_id = #{projectId}
     </update>
 
-    <!--  根据任务ID修改任务标识(0:删除,1:正常)  -->
+    <!--  根据任务ID修改任务标识(0:未删除, 1:已删除)  -->
     <update id="updateTaskFlagByTaskId">
         UPDATE pm_task SET pm_task.del_flag = #{delFlag}
         WHERE pm_task.task_id = #{taskId}

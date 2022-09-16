@@ -99,7 +99,7 @@
         ) r
         LEFT JOIN pm_project ON pm_project.project_id = r.project_id
         WHERE pm_project.project_name = #{projectName}
-        AND pm_project.del_flag = 1
+        AND pm_project.del_flag = 0
     </select>
 
     <insert id="createProject" useGeneratedKeys="true" keyProperty="projectId">
@@ -108,7 +108,7 @@
                #{projectDto.startDate}, #{projectDto.endDate}, #{projectDto.createdById}, #{projectDto.createdDate}, #{projectDto.describe})
     </insert>
 
-    <!--  修改项目标识(0:删除,1:正常)  -->
+    <!--  修改项目标识(0:未删除, 1:已删除)  -->
     <update id="updateProjectFlag">
         UPDATE pm_project SET pm_project.del_flag = #{delFlag}
         WHERE pm_project.project_id = #{projectId}

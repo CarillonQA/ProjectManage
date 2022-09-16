@@ -57,6 +57,17 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
+     * @Description: 根据任务ID恢复被删除的任务及下级子任务
+     * @Author: CarillonQA
+     * @param: taskId
+     * @return: void
+     */
+    @Override
+    public void recoverTaskById(Integer taskId) {
+        recoverTaskRecursion(taskId);
+    }
+
+    /**
      * @Description: 递归查询任务列表
      * @Author: CarillonQA
      * @param: coreTask
@@ -64,6 +75,9 @@ public class TaskServiceImpl implements TaskService {
      */
     public TaskDto queryTaskRecursion(CoreTask coreTask) {
         List<CoreTask> sonTaskList = taskDao.querySonTaskByParentId(coreTask.getTaskId());
+//        // 移除被标记为“已删除”的任务
+//        sonTaskList.removeIf(task -> task.getDelFlag() == 1);
+
         List<TaskDto> taskDtoList = new ArrayList<>();
         // 此处返回啥就build啥
         TaskDto taskDtoBuilder = TaskDto.builder().taskId(coreTask.getTaskId()).taskName(coreTask.getTaskName())
@@ -91,6 +105,22 @@ public class TaskServiceImpl implements TaskService {
         if (taskList != null && taskList.size() != 0) {
             for (CoreTask task : taskList) {
                 deleteTaskRecursion(task.getTaskId());
+            }
+        }
+        taskDao.updateTaskFlagByTaskId(taskId, 1);
+    }
+
+    /**
+     * @Description: 递归恢复任务及下级子任务
+     * @Author: CarillonQA
+     * @param: taskId
+     * @return: void
+     */
+    public void recoverTaskRecursion(Integer taskId) {
+        List<CoreTask> taskList = taskDao.queryDeletedTaskByParentId(taskId);
+        if (taskList != null && taskList.size() != 0) {
+            for (CoreTask task : taskList) {
+                recoverTaskRecursion(task.getTaskId());
             }
         }
         taskDao.updateTaskFlagByTaskId(taskId, 0);

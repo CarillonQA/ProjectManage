@@ -11,4 +11,6 @@ public interface ProjectService {
 
     void deleteProjectById(Integer projectId);
 
+    void recoverProjectById(Integer projectId);
+
 }

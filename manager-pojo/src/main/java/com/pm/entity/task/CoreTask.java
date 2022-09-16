@@ -44,7 +44,7 @@ public class CoreTask {
     @ApiModelProperty(value = "任务所属项目的ID")
     private Integer projectId;
 
-    @ApiModelProperty(value = "逻辑删除标记字段(0:删除, 1:正常)")
+    @ApiModelProperty(value = "逻辑删除标记字段(0:未删除, 1:已删除)")
     private Integer delFlag;
 
 }

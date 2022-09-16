@@ -74,6 +74,20 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public void deleteProjectById(Integer projectId) {
+        Integer integer = projectDao.updateProjectFlag(projectId, 1);
+        if (integer != 0) {
+            taskDao.updateTaskFlagByProjectId(projectId, 1);
+        }
+    }
+
+    /**
+     * @Description: 根据项目ID恢复被删除的项目
+     * @Author: CarillonQA
+     * @param: projectId
+     * @return: void
+     */
+    @Override
+    public void recoverProjectById(Integer projectId) {
         Integer integer = projectDao.updateProjectFlag(projectId, 0);
         if (integer != 0) {
             taskDao.updateTaskFlagByProjectId(projectId, 0);

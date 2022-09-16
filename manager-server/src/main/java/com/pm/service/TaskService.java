@@ -12,4 +12,6 @@ public interface TaskService {
 
     void deleteTaskById(Integer taskId);
 
+    void recoverTaskById(Integer taskId);
+
 }
