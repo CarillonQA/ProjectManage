@@ -30,8 +30,8 @@ public class TaskDto {
     @ApiModelProperty(value = "任务优先级（无，高，中，低）")
     private String taskPriority;
 
-    @ApiModelProperty(value = "任务状态（已完成，未完成）")
-    private String taskState;
+    @ApiModelProperty(value = "任务状态(0:未完成, 1:已完成)")
+    private Integer taskState;
 
     @ApiModelProperty(value = "实际开始时间")
     private String realStartDate;

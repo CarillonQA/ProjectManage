@@ -17,7 +17,7 @@
         <result column="pm_userIsManager" property="isManager"/>
     </resultMap>
 
-<!--    用户查询字段-->
+    <!--  用户查询字段  -->
     <sql id="user">
         pm_user.id as pm_userId,
         pm_user.username as pm_userUsername,
@@ -32,6 +32,13 @@
         pm_user.is_manager as pm_userIsManager
     </sql>
 
+    <!--  获取用户列表  -->
+    <select id="getUserList" resultType="com.pm.entity.user.CoreUser">
+        SELECT
+        <include refid="user" />
+        FROM pm_user
+    </select>
+
     <select id="queryUserByUserName" resultMap="user">
         SELECT
         <include refid="user"/>
@@ -40,4 +47,40 @@
         WHERE
         pm_user.username = #{username}
     </select>
+
+    <!--  根据项目ID查询项目组成员  -->
+    <select id="queryProjectMemberByProjectId" resultMap="user">
+        SELECT
+        <include refid="user" />
+        FROM pm_user
+        WHERE pm_user.id
+        IN (
+            SELECT
+            pm_project_user.user_id
+            FROM pm_project_user
+            WHERE pm_project_user.project_id = #{projectId}
+        )
+    </select>
+
+    <!--  根据任务ID查询任务组成员  -->
+    <select id="queryTaskMemberByTaskId" resultMap="user">
+        SELECT
+        <include refid="user" />
+        FROM pm_user
+        WHERE pm_user.id
+        IN (
+            SELECT
+            pm_task_cadre.task_cadre_id
+            FROM pm_task_cadre
+            WHERE pm_task_cadre.task_id = #{parentId}
+        )
+        OR pm_user.id
+        IN (
+            SELECT
+            pm_task_member.task_member_id
+            FROM pm_task_member
+            WHERE pm_task_member.task_id = #{parentId}
+        )
+    </select>
+
 </mapper>

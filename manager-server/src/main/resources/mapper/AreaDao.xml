@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pm.dao.AreaDao">
+
+    <resultMap id="area" type="com.pm.entity.area.Area">
+        <id property="areaId" column="pm_area_id" />
+        <result property="areaName" column="pm_area_name" />
+    </resultMap>
+
+    <!--  获取地区列表  -->
+    <select id="getAreaList" resultType="com.pm.entity.area.Area">
+        SELECT
+        pm_area.area_id,
+        pm_area.area_name
+        FROM pm_area
+    </select>
+
+</mapper>
